@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
 import * as logger from "@paperdave/logger";
-import * as cli from "./cli";
+import * as cli from "./cli.js";
 
-logger.injectLogger();
-cli.initializeCLI();
+(async function () {
+    logger.injectLogger();
+    cli.initializeCLI();
+})().then(() => {
+    /* */
+})
