@@ -1,5 +1,6 @@
 import {Spinner} from "@paperdave/logger";
 import * as process from "process";
+import {available} from "./env.js";
 import {exec} from "./exec.js";
 import * as yaml from "yaml";
 import * as fs from "fs";
@@ -83,6 +84,11 @@ export async function runJob(data: Job | string, cwd: string | null = null): Pro
 
         const result = await exec(step.run, {
             cwd: cwd || process.cwd(),
+            env: {
+                ...process.env,
+                INSTALL_PACKAGE: available["npm"] + " install",
+                SETUP_PACKAGE: available["npm"] + " init",
+            }
         });
 
         if (result.stderr.length > 0) {
