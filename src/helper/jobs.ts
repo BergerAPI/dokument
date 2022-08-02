@@ -66,21 +66,12 @@ export function parseActionFile(path: string): Job {
 }
 
 /**
- * @param path The path to the job to run.
- */
-export async function runJob(path: string): Promise<void>;
-
-/**
- * @param job The job to run.
- */
-export async function runJob(job: Job): Promise<void>;
-
-/**
  * This function will run a job.
  *
  * @param data The job to run or the path to the job to run.
+ * @param cwd The working directory to run the job in.
  */
-export async function runJob(data: Job | string): Promise<void> {
+export async function runJob(data: Job | string, cwd: string | null = null): Promise<void> {
     const job = typeof data === "string" ? parseActionFile(data) : data;
 
     const spinner = new Spinner({
@@ -90,7 +81,9 @@ export async function runJob(data: Job | string): Promise<void> {
     for (const step of job.steps) {
         spinner.update(`${step.name}: ${step.run}`);
 
-        const result = await exec(step.run);
+        const result = await exec(step.run, {
+            cwd: cwd || process.cwd(),
+        });
 
         if (result.stderr.length > 0) {
             spinner.fail(`"${job.name}" (step: ${step.name}) failed.`);

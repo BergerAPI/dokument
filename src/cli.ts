@@ -1,5 +1,7 @@
 import {Command} from "commander";
 import * as logger from "@paperdave/logger";
+import {exec} from "./helper/exec.js";
+import {runJob} from "./helper/jobs.js";
 
 /**
  * This initializes the CLI.
@@ -19,8 +21,12 @@ export function initializeCLI() {
         .command("init")
         .description("Initialize a new project")
         .argument("<name>", "Name of the project")
-        .action((name: string) => {
-            logger.info(`Initializing project ${name}`);
+        .action(async (name: string) => {
+            logger.info(`Initializing project ${name} with "setupTypescriptProject" Template.`);
+
+            await exec("mkdir " + name);
+
+            await runJob("./templates/setupTypescriptProject.yaml", `./${name}`);
         });
 
     program.parse();

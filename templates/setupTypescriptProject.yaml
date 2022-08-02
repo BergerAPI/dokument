@@ -1,0 +1,21 @@
+name: Simple-TypeScript
+description: This setup is for a simple TypeScript project. It includes Typescript, a Dockerfile, and a prettier config.
+steps:
+  - name: "Initialize a new project"
+    run: npm init -y
+  - name: "Install dependencies"
+    run: npm install --save-dev typescript prettier @types/node
+  - name: "Generate tsconfig.json"
+    run: npx tsc --init
+  - name: "Create folders"
+    run: mkdir src
+  - name: "Create .gitignore and its contents"
+    run: touch .gitignore ;
+            echo 'node_modules' >> .gitignore ;
+            echo 'dist' >> .gitignore ;
+            echo 'coverage' >> .gitignore ;
+            echo '*.log' >> .gitignore ;
+            echo '.idea' >> .gitignore
+  - name: "Create index.ts and its contents"
+    run: touch src/index.ts ;
+            echo '(async function main() {\n\tconsole.log("Hello World!")\n})().then(() => { /* */ })' >> src/index.ts
