@@ -20,4 +20,4 @@ steps:
             echo '*.log' >> .gitignore ;
             echo '.idea' >> .gitignore
   - name: "Create index.ts and its contents"
-    run: cp $PROJECT_DIR/templates/src/hello-world.ts ./src/index.ts
+    run: cp $PROJECT_DIR/templates/src/typescript/hello-world.ts ./src/index.ts

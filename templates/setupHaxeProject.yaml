@@ -9,6 +9,6 @@ steps:
     run: touch .gitignore ;
             echo 'bin' >> .gitignore ;
   - name: "Create Main.hx and its contents"
-    run: cp $PROJECT_DIR/templates/src/hello-world.hx ./src/Main.hx
+    run: cp $PROJECT_DIR/templates/src/haxe/hello-world.hx ./src/Main.hx
   - name: "Create Compile.hxml and its contents"
-    run: cp $PROJECT_DIR/templates/src/compile.hxml ./Compile.hxml
+    run: cp $PROJECT_DIR/templates/src/haxe/compile.hxml ./Compile.hxml
