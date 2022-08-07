@@ -1,5 +1,11 @@
 # dokument
 
+## 0.1.4
+
+### Patch Changes
+
+- 5421936: Based on the user-env you can now switch between package-managers (yarn, npm, pnpm)
+
 ## 0.1.3
 
 ### Patch Changes
