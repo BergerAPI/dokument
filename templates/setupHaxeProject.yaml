@@ -1,0 +1,12 @@
+name: Simple-Haxe
+description: This setup is for a simple Haxe project. It includes a src dir, Compile.hxml and a Main.hx script.
+steps:
+  - name: "Create folders"
+    run: mkdir src
+  - name: "Create .gitignore and its contents"
+    run: touch .gitignore ;
+            echo 'bin' >> .gitignore ;
+  - name: "Create Main.hx and its contents"
+    run: cp $PROJECT_DIR/templates/src/hello-world.hx ./src/Main.hx
+  - name: "Create Compile.hxml and its contents"
+    run: cp $PROJECT_DIR/templates/src/compile.hxml ./Compile.hxml

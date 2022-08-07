@@ -23,10 +23,10 @@ export function initializeCLI() {
         .description("Initialize a new project")
         .argument("<name>", "Name of the project")
         .action(async (name: string) => {
-            logger.info(`Initializing project ${name} with "setupTypescriptProject" Template.`);
+            logger.info(`Initializing project ${name} with "setupHaxeProject" Template.`);
 
             await exec("mkdir " + name);
-            await runJob(`${__projectdir}/templates/setupTypescriptProject.yaml`, `./${name}`);
+            await runJob(`${__projectdir}/templates/setupHaxeProject.yaml`, `./${name}`);
         });
 
     program.parse();
