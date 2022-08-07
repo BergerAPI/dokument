@@ -1,5 +1,5 @@
 # Dokument
-Dokument is a microservice management- and build-system.
+Dokument is a simple project-generator, and -manager.
 
 ## How to Use
 
