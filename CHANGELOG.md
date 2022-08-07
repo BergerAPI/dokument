@@ -1,5 +1,11 @@
 # dokument
 
+## 0.1.9
+
+### Patch Changes
+
+- 0e1f35d: Typescript has a pre-specified package.json now.
+
 ## 0.1.8
 
 ### Patch Changes
