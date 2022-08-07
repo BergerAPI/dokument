@@ -5,9 +5,11 @@ required:
   - npx
 steps:
   - name: "Initialize a new project"
-    run: $NODE_SETUP_PACKAGE
+    run: cp $PROJECT_DIR/templates/src/typescript/package.json ./package.json
+  - name: "Apply Project-Name"
+    run: sed -i 's/project-name/'"$NODE_INSTALL_PACKAGE_DEV/" ./package.json
   - name: "Install dependencies"
-    run: $NODE_INSTALL_PACKAGE_DEV typescript prettier @types/node
+    run: $NODE_INSTALL_PACKAGE_DEV typescript prettier @types/node ts-node
   - name: "Generate tsconfig.json"
     run: npx tsc --init
   - name: "Create folders"

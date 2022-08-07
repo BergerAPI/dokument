@@ -1,0 +1,10 @@
+{
+  "name": "project-name",
+  "version": "0.0.1",
+  "description": "A simple project, created with dokument.",
+  "main": "src/index.ts",
+  "scripts": {
+    "run": "ts-node src/index.ts",
+    "build": "tsc ."
+  }
+}
