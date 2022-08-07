@@ -1,5 +1,11 @@
 # dokument
 
+## 0.1.6
+
+### Patch Changes
+
+- a3d80bc: Each template that requires source-files has its own directory now
+
 ## 0.1.5
 
 ### Patch Changes
