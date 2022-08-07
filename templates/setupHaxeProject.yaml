@@ -1,0 +1,21 @@
+name: Simple-TypeScript
+description: This setup is for a simple Haxe TypeScript project. It includes a src dir, Compile.hxml and a Main.hx script.
+steps:
+  - name: "Create folders"
+    run: mkdir src
+  - name: "Create .gitignore and its contents"
+    run: touch .gitignore ;
+            echo 'bin' >> .gitignore ;
+  - name: "Create Main.hx and its contents"
+    run: touch src/Main.hx ;
+          echo "class Main {" >> src/Main.hx ;
+          echo "  static functon main() {" >> src/Main.hx ;
+          echo "    trace(\"hello, world\");" >> src/Main.hx ;
+          echo "  }" >> src/Main.hx ;
+          echo "}" >> src/Main.hx
+  - name: "Create Compile.hxml and its contents"
+    run: touch Compile.hxml ;
+          echo "--class-path src" >> Compile.hxml ;
+          echo "--main Main" >> Compile.hxml ;
+          echo "--hl bin/out.hl" >> Compile.hxml ;
+          echo "--cmd hl bin/out.hl" >> Compile.hxml
