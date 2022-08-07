@@ -1,5 +1,11 @@
 # dokument
 
+## 0.1.5
+
+### Patch Changes
+
+- 60ce66c: Shifted Required-Programs into the template-definitions
+
 ## 0.1.4
 
 ### Patch Changes
