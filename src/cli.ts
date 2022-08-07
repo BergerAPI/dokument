@@ -1,5 +1,5 @@
 import {Command} from "commander";
-import {init} from "./cmd/init";
+import {init} from "./cmd/init.js";
 
 /**
  * This initializes the CLI.

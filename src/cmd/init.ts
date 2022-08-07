@@ -1,10 +1,10 @@
 import fs from "fs";
 import * as logger from "@paperdave/logger";
-import {__projectdir} from "../helper/path";
+import {__projectdir} from "../helper/path.js";
 import * as yaml from "yaml";
 import inquirer from "inquirer";
-import {exec} from "../helper/exec";
-import {runJob} from "../helper/jobs";
+import {exec} from "../helper/exec.js";
+import {runJob} from "../helper/jobs.js";
 
 /**
  * Initializing a new project with a template.
