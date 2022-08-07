@@ -1,5 +1,11 @@
 # dokument
 
+## 0.1.8
+
+### Patch Changes
+
+- 931dde4: Env-Variables are now not dependent on node, to allow other languages
+
 ## 0.1.7
 
 ### Patch Changes
