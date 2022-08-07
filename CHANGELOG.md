@@ -1,5 +1,11 @@
 # dokument
 
+## 0.1.2
+
+### Patch Changes
+
+- 7b1985e: Fixed Import-Problem that occured when you built dokument and ran the index file
+
 ## 0.1.1
 
 ### Patch Changes
