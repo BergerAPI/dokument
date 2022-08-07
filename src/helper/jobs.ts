@@ -1,7 +1,7 @@
 import {Spinner} from "@paperdave/logger";
 import {__projectdir} from "./path.js";
 import * as process from "process";
-import {available, PACKAGE_MANAGER} from "./env.js";
+import {PACKAGE_MANAGER} from "./env.js";
 import {exec} from "./exec.js";
 import * as yaml from "yaml";
 import * as fs from "fs";
@@ -31,6 +31,11 @@ interface Job {
      * @type {Array<Step>}
      */
     steps: Step[]
+
+    /**
+     * Every required program
+     */
+    required: string[]
 }
 
 /**
@@ -48,6 +53,9 @@ function isStep(obj: any): obj is Step {
  */
 function isJob(obj: any): obj is Job {
     return obj.description !== undefined
+        && obj.name !== undefined
+        && obj.required !== undefined
+        && Array.isArray(obj.required)
         && obj.steps !== undefined
         && Array.isArray(obj.steps)
         && obj.steps.every(isStep);
@@ -61,10 +69,30 @@ export function parseActionFile(path: string): Job {
     const content = fs.readFileSync(path).toString();
     const job: Job = yaml.parse(content);
 
-    if (!isJob(job))
+    if (!isJob(job)) {
         console.error(`The file ${path} is not a valid job configuration.`);
+        process.exit(1);
+    }
 
     return job;
+}
+
+const ENV = {
+    ...process.env,
+    PACKAGE_MANAGER,
+    INSTALL_PACKAGE: {
+        pnpm: "pnpm add",
+        yarn: "yarn add",
+        npm: "npm install",
+    }[PACKAGE_MANAGER],
+    INSTALL_PACKAGE_DEV: {
+        pnpm: "pnpm add -D",
+        yarn: "yarn add -D",
+        npm: "npm install --save-dev",
+    }[PACKAGE_MANAGER],
+
+    SETUP_PACKAGE: `${PACKAGE_MANAGER} init -y`,
+    PROJECT_DIR: __projectdir
 }
 
 /**
@@ -76,6 +104,19 @@ export function parseActionFile(path: string): Job {
 export async function runJob(data: string, cwd: string | null = null): Promise<void> {
     const job = parseActionFile(data);
 
+    // Checking if all required programs are available
+    for (const r of job.required) {
+        try {
+            await exec(`which ${r}`, {
+                cwd: cwd || process.cwd(),
+                env: ENV
+            });
+        } catch(_) {
+            console.log(`Required Program "${r}" is missing.`)
+            process.exit(1);
+        }
+    }
+
     const spinner = new Spinner({
         text: `Running job: "${job.name}"`,
     });
@@ -85,22 +126,7 @@ export async function runJob(data: string, cwd: string | null = null): Promise<v
 
         const result = await exec(step.run, {
             cwd: cwd || process.cwd(),
-            env: {
-                ...process.env,
-                INSTALL_PACKAGE: {
-                    pnpm: available["pnpm"] + " add",
-                    yarn: available["yarn"] + " add",
-                    npm: available["npm"] + " install",
-                }[PACKAGE_MANAGER],
-                INSTALL_PACKAGE_DEV: {
-                    pnpm: available["pnpm"] + " add -D",
-                    yarn: available["yarn"] + " add -D",
-                    npm: available["npm"] + " install --save-dev",
-                }[PACKAGE_MANAGER],
-
-                SETUP_PACKAGE: available[PACKAGE_MANAGER] + " init -y",
-                PROJECT_DIR: __projectdir
-            }
+            env: ENV
         });
 
         if (result.stderr.length > 0) {
