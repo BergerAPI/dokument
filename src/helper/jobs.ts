@@ -15,8 +15,16 @@ type Step = {
 
     /**
      * Will be executed as a shell-command, once the Step is executed.
+     * This should be used if the command is the same on Windows and Unix-based operating systems.
      */
-    run: string;
+    run: string | null;
+
+    /**
+     * Platform-specific commands.
+     * This should be used if the commands are different on Windows and Unix-based operating systems.
+     */
+    win: string | null;
+    unix: string | null;
 }
 
 /**
@@ -44,7 +52,9 @@ interface Job {
  */
 function isStep(obj: any): obj is Step {
     return obj.name !== undefined
-        && obj.run !== undefined;
+        && (obj.run !== undefined
+            || (obj.win !== undefined
+                && obj.unix !== undefined));
 }
 
 /**
@@ -111,7 +121,7 @@ export async function runJob(data: string, cwd: string | null = null): Promise<v
                 cwd: cwd || process.cwd(),
                 env: ENV
             });
-        } catch(_) {
+        } catch (_) {
             console.log(`Required Program "${r}" is missing.`)
             process.exit(1);
         }
@@ -124,7 +134,8 @@ export async function runJob(data: string, cwd: string | null = null): Promise<v
     for (const step of job.steps) {
         spinner.update(`${step.name}: ${step.run}`);
 
-        const result = await exec(step.run, {
+
+        const result = await exec((step.run !== null ? step.run : (process.platform === "win32" ? step.win! : step.unix!)), {
             cwd: cwd || process.cwd(),
             env: ENV
         });
