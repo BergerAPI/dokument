@@ -1,5 +1,11 @@
 # dokument
 
+## 0.1.7
+
+### Patch Changes
+
+- 3b911b6: Steps can now be platform-specfic.
+
 ## 0.1.6
 
 ### Patch Changes
