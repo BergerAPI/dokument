@@ -1,5 +1,5 @@
-name: Simple-TypeScript
-description: This setup is for a simple Haxe TypeScript project. It includes a src dir, Compile.hxml and a Main.hx script.
+name: Simple-Haxe
+description: This setup is for a simple Haxe project. It includes a src dir, Compile.hxml and a Main.hx script.
 steps:
   - name: "Create folders"
     run: mkdir src
