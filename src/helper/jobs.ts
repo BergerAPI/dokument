@@ -1,4 +1,5 @@
 import {Spinner} from "@paperdave/logger";
+import {__projectdir} from "./path.js";
 import * as process from "process";
 import {available} from "./env.js";
 import {exec} from "./exec.js";
@@ -69,7 +70,7 @@ export function parseActionFile(path: string): Job {
 /**
  * This function will run a job.
  *
- * @param data The job to run or the path to the job to run.
+ * @param data The job to run or the path.ts to the job to run.
  * @param cwd The working directory to run the job in.
  */
 export async function runJob(data: Job | string, cwd: string | null = null): Promise<void> {
@@ -88,6 +89,7 @@ export async function runJob(data: Job | string, cwd: string | null = null): Pro
                 ...process.env,
                 INSTALL_PACKAGE: available["npm"] + " install",
                 SETUP_PACKAGE: available["npm"] + " init",
+                PROJECT_DIR: __projectdir
             }
         });
 

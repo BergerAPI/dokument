@@ -2,6 +2,7 @@ import {Command} from "commander";
 import * as logger from "@paperdave/logger";
 import {exec} from "./helper/exec.js";
 import {runJob} from "./helper/jobs.js";
+import {__projectdir} from "./helper/path.js";
 
 /**
  * This initializes the CLI.
@@ -25,8 +26,7 @@ export function initializeCLI() {
             logger.info(`Initializing project ${name} with "setupTypescriptProject" Template.`);
 
             await exec("mkdir " + name);
-
-            await runJob("./templates/setupTypescriptProject.yaml", `./${name}`);
+            await runJob(`${__projectdir}/templates/setupTypescriptProject.yaml`, `./${name}`);
         });
 
     program.parse();

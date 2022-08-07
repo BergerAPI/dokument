@@ -22,7 +22,7 @@ const optionalPrograms = [
 ]
 
 /**
- * Every available program with its matching path.
+ * Every available program with its matching path.ts.
  */
 export let available: { [key: string]: string } = {};
 
