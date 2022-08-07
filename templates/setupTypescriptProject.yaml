@@ -1,13 +1,13 @@
 name: Simple-TypeScript
 description: This setup is for a simple TypeScript project. It includes Typescript, a Dockerfile, and a prettier config.
 required:
-  - $PACKAGE_MANAGER
+  - $NODE_PACKAGE_MANAGER
   - npx
 steps:
   - name: "Initialize a new project"
-    run: $SETUP_PACKAGE
+    run: $NODE_SETUP_PACKAGE
   - name: "Install dependencies"
-    run: $INSTALL_PACKAGE_DEV typescript prettier @types/node
+    run: $NODE_INSTALL_PACKAGE_DEV typescript prettier @types/node
   - name: "Generate tsconfig.json"
     run: npx tsc --init
   - name: "Create folders"

@@ -4,7 +4,7 @@ import * as process from "process";
  * Gets the preferred package-manager of the user.
  * Credit goes to https://github.com/geelen/npx-import/blob/main/src/index.ts
  */
-function getPackageManager(): string {
+function getNodePackageManager(): string {
     const userAgent = process.env.npm_config_user_agent
     if (userAgent) {
         if (userAgent.startsWith('pnpm')) return 'pnpm'
@@ -27,4 +27,4 @@ function getPackageManager(): string {
     return 'npm'
 }
 
-export const PACKAGE_MANAGER = getPackageManager();
+export const NODE_PACKAGE_MANAGER = getNodePackageManager();

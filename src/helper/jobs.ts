@@ -1,7 +1,7 @@
 import {Spinner} from "@paperdave/logger";
 import {__projectdir} from "./path.js";
 import * as process from "process";
-import {PACKAGE_MANAGER} from "./env.js";
+import {NODE_PACKAGE_MANAGER} from "./env.js";
 import {exec} from "./exec.js";
 import * as yaml from "yaml";
 import * as fs from "fs";
@@ -89,19 +89,19 @@ export function parseActionFile(path: string): Job {
 
 const ENV = {
     ...process.env,
-    PACKAGE_MANAGER,
-    INSTALL_PACKAGE: {
+    NODE_PACKAGE_MANAGER,
+    NODE_INSTALL_PACKAGE: {
         pnpm: "pnpm add",
         yarn: "yarn add",
         npm: "npm install",
-    }[PACKAGE_MANAGER],
-    INSTALL_PACKAGE_DEV: {
+    }[NODE_PACKAGE_MANAGER],
+    NODE_INSTALL_PACKAGE_DEV: {
         pnpm: "pnpm add -D",
         yarn: "yarn add -D",
         npm: "npm install --save-dev",
-    }[PACKAGE_MANAGER],
+    }[NODE_PACKAGE_MANAGER],
 
-    SETUP_PACKAGE: `${PACKAGE_MANAGER} init -y`,
+    NODE_SETUP_PACKAGE: `${NODE_PACKAGE_MANAGER} init -y`,
     PROJECT_DIR: __projectdir
 }
 
