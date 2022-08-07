@@ -1,29 +1,35 @@
-name: Release
-
+name: Changesets
 on:
   push:
     branches:
       - release
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
-
+env:
+  CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
 jobs:
-  release:
-    name: Release
+  version:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout code repository
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v2.2.2
-      - uses: actions/setup-node@v3
+      - name: setup node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 18
-          cache: 'pnpm'
-      - name: Install Dependencies
+          node-version: 14
+      - name: install pnpm
+        run: npm i pnpm@latest -g
+      - name: setup pnpm config
+        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
+      - name: install dependencies
         run: pnpm install
-
-      - name: Create Release Pull Request
+      - name: create and publish versions
         uses: changesets/action@v1
+        with:
+          version: pnpm ci:version
+          commit: "chore: update versions"
+          title: "chore: update versions"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
