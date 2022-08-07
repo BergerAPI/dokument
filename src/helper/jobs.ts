@@ -73,8 +73,8 @@ export function parseActionFile(path: string): Job {
  * @param data The job to run or the path.ts to the job to run.
  * @param cwd The working directory to run the job in.
  */
-export async function runJob(data: Job | string, cwd: string | null = null): Promise<void> {
-    const job = typeof data === "string" ? parseActionFile(data) : data;
+export async function runJob(data: string, cwd: string | null = null): Promise<void> {
+    const job = parseActionFile(data);
 
     const spinner = new Spinner({
         text: `Running job: "${job.name}"`,
