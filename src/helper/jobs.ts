@@ -1,7 +1,7 @@
 import {Spinner} from "@paperdave/logger";
 import {__projectdir} from "./path.js";
 import * as process from "process";
-import {available} from "./env.js";
+import {available, PACKAGE_MANAGER} from "./env.js";
 import {exec} from "./exec.js";
 import * as yaml from "yaml";
 import * as fs from "fs";
@@ -87,8 +87,18 @@ export async function runJob(data: string, cwd: string | null = null): Promise<v
             cwd: cwd || process.cwd(),
             env: {
                 ...process.env,
-                INSTALL_PACKAGE: available["npm"] + " install",
-                SETUP_PACKAGE: available["npm"] + " init",
+                INSTALL_PACKAGE: {
+                    pnpm: available["pnpm"] + " add",
+                    yarn: available["yarn"] + " add",
+                    npm: available["npm"] + " install",
+                }[PACKAGE_MANAGER],
+                INSTALL_PACKAGE_DEV: {
+                    pnpm: available["pnpm"] + " add -D",
+                    yarn: available["yarn"] + " add -D",
+                    npm: available["npm"] + " install --save-dev",
+                }[PACKAGE_MANAGER],
+
+                SETUP_PACKAGE: available[PACKAGE_MANAGER] + " init -y",
                 PROJECT_DIR: __projectdir
             }
         });
