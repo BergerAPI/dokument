@@ -1,7 +1,7 @@
+import {NODE_PACKAGE_MANAGER} from "./env.js";
 import {Spinner} from "@paperdave/logger";
 import {__projectdir} from "./path.js";
 import * as process from "process";
-import {NODE_PACKAGE_MANAGER} from "./env.js";
 import {exec} from "./exec.js";
 import * as yaml from "yaml";
 import * as fs from "fs";
@@ -68,8 +68,8 @@ function isJob(obj: any): obj is Job {
         && obj.tag !== undefined
         && obj.required !== undefined
         && Array.isArray(obj.required)
-        && obj.steps !== undefined
         && Array.isArray(obj.steps)
+        && obj.steps !== undefined
         && obj.steps.every(isStep);
 }
 

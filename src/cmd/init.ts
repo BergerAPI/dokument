@@ -1,9 +1,9 @@
-import fs from "fs";
-import * as logger from "@paperdave/logger";
-import {__projectdir} from "../helper/path.js";
-import inquirer from "inquirer";
-import {exec} from "../helper/exec.js";
 import {Job, parseActionFile, runJob} from "../helper/jobs.js";
+import {__projectdir} from "../helper/path.js";
+import * as logger from "@paperdave/logger";
+import {exec} from "../helper/exec.js";
+import inquirer from "inquirer";
+import fs from "fs";
 
 /**
  * Initializing a new project with a template.

@@ -1,5 +1,5 @@
-import {promisify} from 'util';
 import {exec as execSync} from 'child_process';
+import {promisify} from 'util';
 
 /**
  * Wrapper for execSync that returns a promise.
