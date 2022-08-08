@@ -1,5 +1,12 @@
 # dokument
 
+## 0.1.11
+
+### Patch Changes
+
+- a783136: Building before publishing
+- a783136: Fixed Restricted-Access when publishing
+
 ## 0.1.10
 
 ### Patch Changes
