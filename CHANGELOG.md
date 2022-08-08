@@ -1,5 +1,11 @@
 # dokument
 
+## 0.2.1
+
+### Patch Changes
+
+- b177e38: fixed template-sources
+
 ## 0.2.0
 
 ### Minor Changes
