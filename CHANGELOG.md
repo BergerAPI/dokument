@@ -1,5 +1,11 @@
 # dokument
 
+## 0.2.0
+
+### Minor Changes
+
+- 23eaf92: Choosing the template, tags, env, platform-specfic commands
+
 ## 0.1.11
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "name": "dokument",
   "main": "./src/index.ts",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "bin": {
     "dokument": "dist/index.js"
   },
