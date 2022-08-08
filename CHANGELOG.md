@@ -1,5 +1,11 @@
 # dokument
 
+## 0.1.10
+
+### Patch Changes
+
+- 9872dfd: Added Publishing to NPM
+
 ## 0.1.9
 
 ### Patch Changes
