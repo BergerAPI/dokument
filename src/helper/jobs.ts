@@ -10,7 +10,7 @@ import * as fs from "fs";
  * This defines a shell-command to be executed along with its name that should
  * describe what the Step does.
  */
-type Step = {
+export type Step = {
     name: string;
 
     /**
@@ -30,9 +30,10 @@ type Step = {
 /**
  * Type for the YAML configuration file, that describes how projects are built/initialized/generated.
  */
-interface Job {
+export interface Job {
     name: string;
     description: string;
+    tag: string;
 
     /**
      * In this array all steps are stored with their description.
@@ -64,6 +65,7 @@ function isStep(obj: any): obj is Step {
 function isJob(obj: any): obj is Job {
     return obj.description !== undefined
         && obj.name !== undefined
+        && obj.tag !== undefined
         && obj.required !== undefined
         && Array.isArray(obj.required)
         && obj.steps !== undefined
@@ -133,7 +135,6 @@ export async function runJob(data: string, cwd: string | null = null): Promise<v
 
     for (const step of job.steps) {
         spinner.update(`${step.name}: ${step.run}`);
-
 
         const result = await exec((step.run !== null ? step.run : (process.platform === "win32" ? step.win! : step.unix!)), {
             cwd: cwd || process.cwd(),

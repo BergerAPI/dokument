@@ -1,5 +1,6 @@
 name: Simple-TypeScript
 description: This setup is for a simple TypeScript project. It includes Typescript, a Dockerfile, and a prettier config.
+tag: NodeJS
 required:
   - $NODE_PACKAGE_MANAGER
   - npx

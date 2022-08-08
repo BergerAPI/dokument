@@ -1,5 +1,6 @@
 name: Simple-Haxe
 description: This setup is for a simple Haxe project. It includes a src dir, Compile.hxml and a Main.hx script.
+tag: Haxe
 required:
   - haxe
 steps:
