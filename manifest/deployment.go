@@ -11,7 +11,7 @@ type DeploymentConfig struct {
 	Namespace    string
 	Name         string
 	Image        string
-	EnvVars      map[string]string
+	EnvVars      []core.EnvVar
 	Volumes      []core.Volume
 	VolumeMounts []core.VolumeMount
 	Replicas     int32
@@ -23,7 +23,7 @@ func NewDeploymentConfig(name, image string) DeploymentConfig {
 		Namespace:    "default",
 		Name:         name,
 		Image:        image,
-		EnvVars:      map[string]string{},
+		EnvVars:      []core.EnvVar{},
 		Volumes:      []core.Volume{},
 		VolumeMounts: []core.VolumeMount{},
 		Replicas:     1,
@@ -32,14 +32,6 @@ func NewDeploymentConfig(name, image string) DeploymentConfig {
 
 // GenerateDeployment creates a Kubernetes Deployment for a database or service.
 func GenerateDeployment(config DeploymentConfig) *apps.Deployment {
-	var env []core.EnvVar
-	for key, value := range config.EnvVars {
-		env = append(env, core.EnvVar{
-			Name:  key,
-			Value: value,
-		})
-	}
-
 	return &apps.Deployment{
 		ObjectMeta: meta.ObjectMeta{
 			Name:      config.Name,
@@ -66,7 +58,7 @@ func GenerateDeployment(config DeploymentConfig) *apps.Deployment {
 						{
 							Name:         config.Name,
 							Image:        config.Image,
-							Env:          env,
+							Env:          config.EnvVars,
 							VolumeMounts: config.VolumeMounts,
 						},
 					},
