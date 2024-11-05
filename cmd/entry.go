@@ -34,11 +34,30 @@ func main() {
 		deployment.Replicas = service.Replicas
 		deployment.EnvVars = envVars
 
-		data, err := yaml.Marshal(manifest.GenerateDeployment(deployment))
+		deploymentManifest, err := yaml.Marshal(manifest.GenerateDeployment(deployment))
 		if err != nil {
 			println("error marshalling YAML: %w", err)
 		}
 
-		fmt.Println(string(data))
+		fmt.Println(string(deploymentManifest))
+
+		if service.Ports != nil {
+			var serviceType core.ServiceType
+			if service.Expose == "nodeport" {
+				serviceType = core.ServiceTypeNodePort
+			} else {
+				serviceType = core.ServiceTypeClusterIP
+			}
+
+			serviceConfig := manifest.NewServiceConfig(name, serviceType)
+			serviceConfig.Ports = service.Ports
+
+			serviceManifest, err := yaml.Marshal(manifest.GenerateService(serviceConfig))
+			if err != nil {
+				println("error marshalling YAML: %w", err)
+			}
+
+			fmt.Println(string(serviceManifest))
+		}
 	}
 }

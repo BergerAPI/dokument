@@ -12,12 +12,12 @@ type Config struct {
 
 // Service defines a single deployment
 type Service struct {
-	Image     string   `yaml:"image"`
-	Replicas  int32    `yaml:"replicas"`
-	Ports     []int32  `yaml:"ports"`
-	Env       []string `yaml:"env"`
-	DependsOn []string `yaml:"depends_on"`
-	Storage   Storage  `yaml:"storage"`
+	Image    string   `yaml:"image"`
+	Replicas int32    `yaml:"replicas"`
+	Ports    []int32  `yaml:"ports"`
+	Env      []string `yaml:"env"`
+	Expose   string   `yaml:"expose"`
+	Storage  Storage  `yaml:"storage"`
 }
 
 // Storage specifies the volume size of a pvc-claim for a service
